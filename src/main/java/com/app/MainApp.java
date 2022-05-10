@@ -1,6 +1,8 @@
 package com.app;
 
 import com.app.model.Account;
+import com.app.model.Apartment;
+import com.app.process.ImportData;
 import javafx.application.Application;
 
 import javafx.scene.Scene;
@@ -10,6 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,9 +51,7 @@ public class MainApp extends Application {
             System.out.println(ipID.getText());
             System.out.println(comboType.getValue());
             System.out.println(comboPrice.getValue());
-
         });
-
         VBox vBox = new VBox();
         vBox.getChildren().addAll(lb,hBox,comboType,comboPrice,hBoxOwner,btn);
         Scene scene = new Scene(vBox,600,600);
@@ -132,7 +135,12 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+//        launch(args);
+        System.out.println("chào Hiếu");
+        List<Apartment> da = new ImportData().getData();
+        for (Apartment d: da) {
+            System.out.printf("%s\t",d.getNumber());
+        }
 
     }
 
