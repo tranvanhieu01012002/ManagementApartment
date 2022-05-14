@@ -11,10 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,18 +126,17 @@ public class MainApp extends Application {
     }
     @Override
     public void start(Stage primaryStage) {
-//        setupLogin(primaryStage);
-          setupMainBoard(primaryStage);
+        setupLogin(primaryStage);
+//          setupMainBoard(primaryStage);
     }
 
     public static void main(String[] args) {
-//        launch(args);
-        System.out.println("chào Hiếu");
         List<Apartment> da = new ImportData().getData();
         for (Apartment d: da) {
-            System.out.printf("%s\t",d.getNumber());
+            System.out.printf("%s\n",d.getNumber());
         }
-
+        launch(args);
+//        System.out.println("chào Hiếu");
     }
 
 }
