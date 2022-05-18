@@ -1,8 +1,8 @@
 package com.app;
 
 import com.app.model.Account;
-import com.app.model.Apartment;
-import com.app.process.ImportData;
+import com.app.model.Travel;
+import com.app.model.crawlData.crawlData;
 import javafx.application.Application;
 
 import javafx.scene.Scene;
@@ -131,12 +131,14 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-        List<Apartment> da = new ImportData().getData();
-        for (Apartment d: da) {
-            System.out.printf("%s\n",d.getNumber());
+
+        crawlData data = new crawlData();
+        for (Travel i:  data.callApi()) {
+
+            System.out.println(i.toString());;
         }
-        launch(args);
-//        System.out.println("chào Hiếu");
+      ;
+
     }
 
 }
