@@ -4,10 +4,17 @@ public class Travel {
     private String name;
     private  String time;
     private  String start_end;
-    private String price;
+    private int price;
     private String img;
     public Travel(){
 
+    }
+    public Travel(String name, String time, String start_end, int price,String img){
+        this.setName(name);
+        this.setTime(time);
+        this.setStart_end(start_end);
+        this.setPrice(price);
+        this.setImg(img);
     }
     // getter setter for class
     public void setImg(String img) {
@@ -18,7 +25,7 @@ public class Travel {
         this.name = name;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -34,7 +41,7 @@ public class Travel {
         return img;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -15,15 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class crawlData {
+    static final String API = "https://61cfb80065c32600170c7fa8.mockapi.io/test";
     private  static HttpURLConnection connection;
 
     public List<Travel> callApi() {
+
         BufferedReader reader;
         String line;
         StringBuffer responseContent = new StringBuffer();
         List<Travel> list = new ArrayList<>();
         try {
-            URL url = new URL("https://61cfb80065c32600170c7fa8.mockapi.io/test");
+            URL url = new URL(API);
             connection = (HttpURLConnection) url.openConnection();
             //request setup
             connection.setRequestMethod("GET");
@@ -81,12 +84,36 @@ public class crawlData {
            travel.setName(name);
            travel.setTime(time);
            travel.setStart_end(start);
-           travel.setPrice(price);
+           travel.setPrice(Integer.parseInt(price.replaceAll(",","")));
         return travel;
     }
     public static List<Travel> listTravel(Travel travel, List<Travel> list){
         list.add(travel);
         return list;
     }
+    public boolean postRequest(String urlStr, String jsonBodyStr) throws IOException {
+        URL url = new URL(urlStr);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setDoOutput(true);
+        httpURLConnection.setRequestMethod("POST");
+        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+        try (OutputStream outputStream = httpURLConnection.getOutputStream()) {
+            outputStream.write(jsonBodyStr.getBytes());
+            outputStream.flush();
+        }
+        if (httpURLConnection.getResponseCode() == 201) {
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()))) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    // ... do something with line
+                    System.out.println(line);
+                }
+            }
+        } else {
+            // ... do something with unsuccessful response
+            System.out.println(false);
 
+        }
+        return true;
+    }
 }

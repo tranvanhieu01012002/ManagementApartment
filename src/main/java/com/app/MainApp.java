@@ -1,12 +1,20 @@
 package com.app;
 
+import com.app.controller.ControllerCreate;
+import com.app.controller.ControllerMainBoard;
+import com.app.controller.ControllerShow;
+import com.app.controller.Validate;
 import com.app.model.Account;
 import com.app.model.Travel;
 import com.app.model.crawlData.crawlData;
+import com.app.view.Login;
+import com.app.view.MainBoard;
+import com.app.view.ShowData;
 import javafx.application.Application;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -54,89 +62,66 @@ public class MainApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    public  void setupMainBoard(Stage primaryStage){
-        Label lb = new Label("Main functions");
-        Button cBtn = new Button("Create");
-        Button rBtn = new Button("See List");
-        Button uBtn = new Button("Update");
-        Button dBtn = new Button("Delete");
-        HBox hBox = new HBox();
-        VBox vBox = new VBox();
-        hBox.getChildren().addAll(cBtn,rBtn,uBtn,dBtn);
-        vBox.getChildren().addAll(lb,hBox);
-        Scene scene1 = new Scene(vBox,1000,200);
-        primaryStage.setScene(scene1);
-        primaryStage.show();
-        cBtn.setOnAction(actionEvent -> {
-          setupForm(primaryStage);
-        });
 
-    }
-    public void setupLogin(Stage primaryStage){
-        List<Account> list = new ArrayList<Account>();
-        list.add(new Account("admin","123"));
-        list.add(new Account("user","123"));
+    public static void renderLogin(List<Account> list,Stage primaryStage){
+        VBox login = Login.setupLogin(primaryStage);
+        TextField user = (TextField) login.getChildren().get(1);
+        TextField pass = (TextField) login.getChildren().get(2);
+        Button btnLogin = (Button) login.getChildren().get(3);
+//          setupMainBoard(primaryStage);
 
-        primaryStage.setTitle("Ứng dụng quản lý chung cư");
-        VBox vBox = new VBox();
-        Label lb = new Label("Login Form");
-        Button login = new Button("Login");
-        TextField inputUser = new TextField();
-        TextField inputPass = new TextField();
-        inputUser.setMaxWidth(300);
-        inputUser.setPromptText("Tên đăng nhập");
-        inputPass.setPromptText("Mật khẩu");
-        inputPass.setMaxWidth(300);
-
-        // set properties for alert
-
-
-        login.setOnAction(actionEvent -> {
+        Validate check = new Validate();
+        btnLogin.setOnAction(actionEvent -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Confirmation");
             alert.setHeaderText("Alert Information Login");
             alert.setContentText("UserName or Password is wrong");
-            if(checkLogin(list,inputUser.getText(),inputPass.getText())){
-                setupMainBoard(primaryStage);
+            if(check.checkLogin(list,user.getText(),pass.getText())){
+                System.out.println(true);
+//                MainBoard.setupMainBoard(primaryStage);
+//
             }
-            else{
+            else {
+                System.out.println(false);
                 alert.setContentText("Login Failed");
                 alert.show();
             }
-
         });
-
-
-        vBox.getChildren().addAll(lb,inputUser,inputPass,login);
-
-        Scene scene = new Scene(vBox,500,500);
+        Scene scene = new Scene(login,500,500);
         primaryStage.setScene(scene);
         primaryStage.show();
 
-
     }
 
-    public boolean checkLogin(List<Account> arr, String user, String pass){
-        for (Account i: arr) {
-            if(i.user.equals(user) && i.password.equals(pass) ){
-                return  true;
-            }
-        }
-        return false;
-    }
     @Override
     public void start(Stage primaryStage) {
-        setupLogin(primaryStage);
-//          setupMainBoard(primaryStage);
+//        List<Account> list = new ArrayList<Account>();
+//        list.add(new Account("admin","123"));
+//        list.add(new Account("user","123"));
+//        renderLogin(list,primaryStage);
+
+        // render function Show
+//        Scene scene = new Scene(ControllerShow.renderData(),500,400);
+
+        // render MainBoard
+//        Scene scene = new Scene(ControllerMainBoard.renderMainBoard(),500,400);
+
+        // render Create
+        Scene scene = new Scene(ControllerCreate.renderCreate(),500,400);
+
+        primaryStage.setScene(scene);
+        primaryStage.getIcons().add(new Image("https://seeklogo.com/images/D/dr-strange-logo-8AE12158D3-seeklogo.com.png"));
+        primaryStage.setTitle("App chọn du lịch");
+        primaryStage.show();
     }
 
+
     public static void main(String[] args) {
-
-        crawlData data = new crawlData();
-        for (Travel i:  data.callApi()) {
-
-            System.out.println(i.toString());;
-        }
+        launch();
+//        crawlData data = new crawlData();
+//        for (Travel i:  data.callApi()) {
+//            System.out.println(i.toString());;
+//        }
       ;
 
     }
