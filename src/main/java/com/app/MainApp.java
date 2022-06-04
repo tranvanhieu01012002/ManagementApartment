@@ -1,15 +1,10 @@
 package com.app;
 
-import com.app.controller.ControllerCreate;
-import com.app.controller.ControllerMainBoard;
 import com.app.controller.ControllerShow;
 import com.app.controller.Validate;
 import com.app.model.Account;
-import com.app.model.Travel;
 import com.app.model.crawlData.crawlData;
 import com.app.view.Login;
-import com.app.view.MainBoard;
-import com.app.view.ShowData;
 import javafx.application.Application;
 
 import javafx.scene.Scene;
@@ -19,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainApp extends Application {
@@ -62,7 +56,6 @@ public class MainApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
     public static void renderLogin(List<Account> list,Stage primaryStage){
         VBox login = Login.setupLogin(primaryStage);
         TextField user = (TextField) login.getChildren().get(1);
@@ -101,29 +94,49 @@ public class MainApp extends Application {
 //        renderLogin(list,primaryStage);
 
         // render function Show
-//        Scene scene = new Scene(ControllerShow.renderData(),500,400);
+        ScrollPane scrollPane = new ScrollPane();
+
+        ControllerShow cShow = new ControllerShow(primaryStage);
+        scrollPane = cShow.renderData();
+
+        Scene scene = new Scene(scrollPane,500,400);
 
         // render MainBoard
 //        Scene scene = new Scene(ControllerMainBoard.renderMainBoard(),500,400);
 
         // render Create
-        Scene scene = new Scene(ControllerCreate.renderCreate(),500,400);
+//        ControllerCreate controllerCreate = new ControllerCreate();
+//        Scene scene = new Scene(controllerCreate.renderCreate(),500,400);
 
-        primaryStage.setScene(scene);
+
+
+//        primaryStage.setScene(scene);
+//        primaryStage.getIcons().add(new Image("https://seeklogo.com/images/D/dr-strange-logo-8AE12158D3-seeklogo.com.png"));
+//        primaryStage.setTitle("App chọn du lịch");
+//        primaryStage.show();
+
+//      // set up some information for app
         primaryStage.getIcons().add(new Image("https://seeklogo.com/images/D/dr-strange-logo-8AE12158D3-seeklogo.com.png"));
         primaryStage.setTitle("App chọn du lịch");
+
+        mainShow(scene,primaryStage);
+
+    }
+    public  void mainShow(Scene scene, Stage primaryStage){
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
         launch();
+//        crawlData   crawlData = new crawlData();
+//        crawlData.updateRequest("0","{\"name\": \"hieu\", \"time\": \"2222\",\"start_end\": \"444\",\"price\": \"555\",\"img\": \"5555\"}")
 //        crawlData data = new crawlData();
 //        for (Travel i:  data.callApi()) {
 //            System.out.println(i.toString());;
 //        }
       ;
-
     }
 
 }

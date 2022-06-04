@@ -18,9 +18,9 @@ public class CreateView extends Application {
     public void start(Stage primaryStage) {
 
     }
-    public static GridPane createView(){
+    public  GridPane createView(){
         //create label 1
-        Label lbl1=new Label("Thêm chuyến du lịch");
+        Label lbl1=new Label("Chuyến du lịch");
 //create label 2
         Label lbl2=new Label("Ngày bắt đầu ");
 
@@ -34,15 +34,17 @@ public class CreateView extends Application {
 
 
 //create textfield 1
+
+
         TextField t1=new TextField();
-//create textfield  2
         TextField t2=new TextField();
         TextField t3=new TextField();
         TextField t4=new TextField();
         TextField t5=new TextField();
         TextField t6=new TextField();
+
 //create a button
-        Button b=new Button ("Click me ! !");
+        Button b=new Button ("Nhấp đi anh ! !");
 //create gridpane
         GridPane gp=new GridPane();
 //create scene

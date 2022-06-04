@@ -5,11 +5,13 @@ public class Travel {
     private  String time;
     private  String start_end;
     private int price;
+    private int id;
     private String img;
     public Travel(){
 
     }
-    public Travel(String name, String time, String start_end, int price,String img){
+    public Travel(String name, String time, String start_end, int price, String img, int id){
+        this.id = id;
         this.setName(name);
         this.setTime(time);
         this.setStart_end(start_end);
@@ -57,8 +59,16 @@ public class Travel {
         return time;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
-        return getImg() + "\t"+ getTime() + "\t"+ getPrice();
+        return getName()+"\n"+getTime()+"\n"+getPrice()+"\n"+getStart_end();
     }
 }

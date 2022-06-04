@@ -17,9 +17,7 @@ public class ControllerMainBoard extends Application {
     public void start(Stage primaryStage) {
 
     }
-    public static void printtt(String string){
-        System.out.println(string);
-    }
+
     public static VBox renderMainBoard(){
         VBox vBox = MainBoard.setupMainBoard();
 //        System.out.println(vBox.getChildren().get(1).getClass().getName());
