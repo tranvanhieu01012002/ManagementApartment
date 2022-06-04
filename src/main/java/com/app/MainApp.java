@@ -1,5 +1,6 @@
 package com.app;
 
+import com.app.controller.ControllerMainBoard;
 import com.app.controller.ControllerShow;
 import com.app.controller.Validate;
 import com.app.model.Account;
@@ -93,16 +94,17 @@ public class MainApp extends Application {
 //        list.add(new Account("user","123"));
 //        renderLogin(list,primaryStage);
 
-        // render function Show
-        ScrollPane scrollPane = new ScrollPane();
-
-        ControllerShow cShow = new ControllerShow(primaryStage);
-        scrollPane = cShow.renderData();
-
-        Scene scene = new Scene(scrollPane,500,400);
+//         render function Show
+//        ScrollPane scrollPane = new ScrollPane();
+//
+//        ControllerShow cShow = new ControllerShow(primaryStage);
+//        scrollPane = cShow.renderData();
+//
+//        Scene scene = new Scene(scrollPane,500,400);
 
         // render MainBoard
-//        Scene scene = new Scene(ControllerMainBoard.renderMainBoard(),500,400);
+        ControllerMainBoard cMB = new ControllerMainBoard();
+        Scene scene = new Scene(cMB.renderMainBoard(primaryStage),500,400);
 
         // render Create
 //        ControllerCreate controllerCreate = new ControllerCreate();
@@ -130,13 +132,6 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         launch();
-//        crawlData   crawlData = new crawlData();
-//        crawlData.updateRequest("0","{\"name\": \"hieu\", \"time\": \"2222\",\"start_end\": \"444\",\"price\": \"555\",\"img\": \"5555\"}")
-//        crawlData data = new crawlData();
-//        for (Travel i:  data.callApi()) {
-//            System.out.println(i.toString());;
-//        }
-      ;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.app.view;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,6 +21,7 @@ public class MainBoard extends Application {
     }
     public  static VBox setupMainBoard(){
         Label lb = new Label("Main functions");
+//        lb.setPadding(Insets);
         Button cBtn = new Button("Create");
         Button rBtn = new Button("See List");
         Button uBtn = new Button("Update");
@@ -28,6 +30,9 @@ public class MainBoard extends Application {
         VBox vBox = new VBox();
         hBox.getChildren().addAll(cBtn,rBtn,uBtn,dBtn);
         vBox.getChildren().addAll(lb,hBox);
+        vBox.setSpacing(40);
+        hBox.setSpacing(40);
+
 //        Scene scene1 = new Scene(vBox,1000,200);
 //        primaryStage.setScene(scene1);
 //        primaryStage.show();

@@ -220,7 +220,6 @@ public class crawlData {
         try (OutputStream outputStream = httpURLConnection.getOutputStream()) {
             outputStream.write(jsonBodyStr.getBytes());
             outputStream.flush();
-            System.out.println(true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

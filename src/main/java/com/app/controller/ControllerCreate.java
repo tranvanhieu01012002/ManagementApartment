@@ -25,10 +25,9 @@ public class ControllerCreate extends Application {
 
         crawlData API = new crawlData();
         Travel travel = new Travel(name, time, start_end, price, img, id);
-        boolean status;
-        status = true;
-        API.postRequest(crawlData.API,
-                ("{\"name\": \"%s\", \"time\": \"%s\",\"start_end\": \"%s\",\"price\": \"%s\",\"img\": \"%s\"}").formatted(travel.getName(), travel.getTime(), travel.getStart_end(), travel.getPrice(), travel.getImg()));
+        boolean status = API.postRequest(crawlData.API,
+                ("{\"name\": \"%s\", \"time\": \"%s\",\"start_end\": \"%s\",\"price\": \"%s\",\"img\": \"%s\"}")
+                        .formatted(travel.getName(), travel.getTime(), travel.getStart_end(), travel.getPrice(), travel.getImg()));
         return status;
     }
     public  GridPane renderCreate(){
