@@ -28,8 +28,8 @@ public class crawlData {
             connection = (HttpURLConnection) url.openConnection();
             //request setup
             connection.setRequestMethod("GET");
-            connection.setConnectTimeout(5000);
-            connection.setReadTimeout(5000);
+//            connection.setConnectTimeout(5000);
+//            connection.setReadTimeout(5000);
 
             // status of connect
             int status = connection.getResponseCode();

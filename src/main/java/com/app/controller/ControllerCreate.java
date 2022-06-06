@@ -1,9 +1,13 @@
 package com.app.controller;
 
+import com.app.MainApp;
+import com.app.core.AlertNoti;
 import com.app.model.Travel;
 import com.app.model.crawlData.crawlData;
 import com.app.view.CreateView;
 import javafx.application.Application;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -30,7 +34,7 @@ public class ControllerCreate extends Application {
                         .formatted(travel.getName(), travel.getTime(), travel.getStart_end(), travel.getPrice(), travel.getImg()));
         return status;
     }
-    public  GridPane renderCreate(){
+    public  GridPane renderCreate(Stage stage){
         CreateView createView = new CreateView();
         GridPane gridPane = createView.createView();
         TextField textField1 = (TextField) gridPane.getChildren().get(1);
@@ -40,6 +44,7 @@ public class ControllerCreate extends Application {
         TextField textField5 = (TextField) gridPane.getChildren().get(9);
         TextField textField6 = (TextField) gridPane.getChildren().get(11);
         Button btn = (Button) gridPane.getChildren().get(12);
+        Button btnBack = (Button) gridPane.getChildren().get(13);
         btn.setOnAction(actionEvent -> {
             // create a travel object
             addTravel(
@@ -50,8 +55,24 @@ public class ControllerCreate extends Application {
                     textField5.getText(),
                     //id = 0 because mock api auto create id after post method
                     0);
-        });
+            AlertNoti alertNoti = new AlertNoti();
+            alertNoti.alertInformation("Chào Hiếu","Bạn vừa thêm thành công!" +textField1.getText());
 
+           backMainList(stage);
+
+        });
+        btnBack.setOnAction(actionEvent -> {
+
+            backMainList(stage);
+        });
         return gridPane;
+    }
+    void backMainList(Stage stage){
+        // call mainShow
+        ControllerShow controllerShow = new ControllerShow(stage);
+        Scene scene1 = new Scene(controllerShow.renderData(stage),500,400);
+        MainApp mainApp = new MainApp();
+        mainApp.mainShow(scene1 ,stage);
+
     }
 }

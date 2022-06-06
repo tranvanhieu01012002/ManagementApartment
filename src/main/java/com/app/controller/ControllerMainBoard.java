@@ -24,7 +24,6 @@ public class ControllerMainBoard extends Application {
     public  VBox renderMainBoard(Stage primaryStage){
         MainApp mainApp = new MainApp();
         VBox vBox = MainBoard.setupMainBoard();
-//        System.out.println(vBox.getChildren().get(1).getClass().getName());
         HBox hBox = (HBox) vBox.getChildren().get(1);
         // index 0 for create
 
@@ -33,7 +32,7 @@ public class ControllerMainBoard extends Application {
 
 
             ControllerCreate controllerCreate = new ControllerCreate();
-            Scene scene = new Scene(controllerCreate.renderCreate(),500,400);
+            Scene scene = new Scene(controllerCreate.renderCreate(primaryStage),500,400);
 
             mainApp.mainShow(scene,primaryStage);
 
@@ -44,7 +43,7 @@ public class ControllerMainBoard extends Application {
         btnS.setOnAction(actionEvent -> {
 
             ControllerShow cShow = new ControllerShow(primaryStage);
-            ScrollPane scrollPane = cShow.renderData();
+            ScrollPane scrollPane = cShow.renderData(primaryStage);
             Scene scene = new Scene(scrollPane,500,400);
 
             mainApp.mainShow(scene,primaryStage);

@@ -46,7 +46,7 @@ public class ControllerShow extends Application {
 
                     // re-render UI
                     MainApp mainApp = new MainApp();
-                    mainApp.mainShow(new Scene(this.renderData(),500,400),stage);
+                    mainApp.mainShow(new Scene(this.renderData(stage),500,400),stage);
                     alertNoti.alertInformation("Hi Hiếu","Bạn đã xóa thành công");
                 }
             } catch (IOException e) {
@@ -90,13 +90,22 @@ public class ControllerShow extends Application {
         }
         return vBox;
     }
-    public  ScrollPane renderData(){
+    public  ScrollPane renderData(Stage stage){
         //create from View
         ShowData dataView = new ShowData();
+        VBox vBox = dataView.showData();
+        HBox hBox = (HBox) vBox.getChildren().get(0);
+        Button btn = (Button) hBox.getChildren().get(1);
+        btn.setOnAction(actionEvent -> {
+            ControllerCreate cCreate = new ControllerCreate();
+            Scene scene1 = new Scene(cCreate.renderCreate(stage),500,400);
+            MainApp mainApp = new MainApp();
+            mainApp.mainShow(scene1 ,stage);
+        });
         // getData
         crawlData dataAPI = new crawlData();
 
         // create a scrollPane to scroll down
-        return new ScrollPane(inputData(dataAPI.callApi(),dataView.showData()));
+        return new ScrollPane(inputData(dataAPI.callApi(),vBox));
     }
 }
