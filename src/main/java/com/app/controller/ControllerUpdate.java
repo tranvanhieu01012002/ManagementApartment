@@ -49,7 +49,6 @@ public class ControllerUpdate extends Application {
         TextField textField4 = (TextField) gridPane.getChildren().get(7);
         TextField textField5 = (TextField) gridPane.getChildren().get(9);
         TextField textField6 = (TextField) gridPane.getChildren().get(11);
-
         textField1.setText(travel.getName());
         textField2.setText(travel.getTime());
         textField3.setText(travel.getTime());
