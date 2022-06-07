@@ -24,11 +24,9 @@ public class MainBoard extends Application {
 //        lb.setPadding(Insets);
         Button cBtn = new Button("Create");
         Button rBtn = new Button("See List");
-        Button uBtn = new Button("Update");
-        Button dBtn = new Button("Delete");
         HBox hBox = new HBox();
         VBox vBox = new VBox();
-        hBox.getChildren().addAll(cBtn,rBtn,uBtn,dBtn);
+        hBox.getChildren().addAll(cBtn,rBtn);
         vBox.getChildren().addAll(lb,hBox);
         vBox.setSpacing(40);
         hBox.setSpacing(40);

@@ -80,7 +80,7 @@ public class ControllerUpdate extends Application {
 
             // call mainShow
             ControllerShow controllerShow = new ControllerShow(stage);
-            Scene scene1 = new Scene(controllerShow.renderData(),500,400);
+            Scene scene1 = new Scene(controllerShow.renderData(stage),500,400);
             mainApp.mainShow(scene1 ,stage);
         });
 

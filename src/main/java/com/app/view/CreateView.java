@@ -19,51 +19,31 @@ public class CreateView extends Application {
 
     }
     public  GridPane createView(){
-        //create label 1
-        Label lbl1=new Label("Chuyến du lịch");
-//create label 2
-        Label lbl2=new Label("Ngày bắt đầu ");
 
-        Label lbl3=new Label("Ngày kết thúc ");
-
-        Label lbl4=new Label("Thời gian ");
-
-        Label lbl5=new Label("Hình ảnh");
-
-        Label lbl6=new Label("Giá");
+        String[] strAr=new String[]
+                {
+                        "Chuyến du lịch",
+                        "Ngày bắt đầu",
+                        "Ngày kết thúc",
+                        "Thời gian ",
+                        "Hình ảnh",
+                        "Giá"
+                };
 
 
-//create textfield 1
 
-
-        TextField t1=new TextField();
-        TextField t2=new TextField();
-        TextField t3=new TextField();
-        TextField t4=new TextField();
-        TextField t5=new TextField();
-        TextField t6=new TextField();
-
-//create a button
-        Button b=new Button ("Nhấp đi anh ! !");
-//create gridpane
         GridPane gp=new GridPane();
-//create scene
 
-//first row
-        gp.addRow(0, lbl1,t1);
-//second row
-        gp.addRow(1, lbl2,t2);
+        for (int i = 0;i<6;i++){
+            gp.addRow(i,new Label(strAr[i]),new TextField());
+        }
 
-        gp.addRow(2, lbl3,t3);
-        gp.addRow(3, lbl4,t4);
-        gp.addRow(4, lbl5,t5);
-        gp.addRow(5, lbl6,t6);
-        gp.addRow(7, b);
+        Button b=new Button ("Nhấp đi anh ! !");
+        Button back = new Button("Về màn hình chính");
 
-        Label lb = (Label) gp.getChildren().get(2);
-        System.out.println(lb.getText());
+        gp.addRow(6, b,back);
 
-//        gp.addRow(10, b);
+
         return gp;
     }
 
