@@ -35,8 +35,6 @@ public class ControllerMainBoard extends Application {
             Scene scene = new Scene(controllerCreate.renderCreate(primaryStage),500,400);
 
             mainApp.mainShow(scene,primaryStage);
-
-
         });
 
         Button btnS = (Button) hBox.getChildren().get(1);
