@@ -23,7 +23,8 @@ public class Login extends Application {
     public void start(Stage primaryStage) {
 
     }
-    public static VBox setupLogin(Stage primaryStage){
+    public  VBox setupLogin(Stage primaryStage){
+
 
         primaryStage.setTitle("Ứng dụng quản lý chung cư");
         VBox vBox = new VBox();
@@ -37,8 +38,6 @@ public class Login extends Application {
         inputPass.setMaxWidth(300);
 
         // set properties for alert
-
-
         vBox.getChildren().addAll(lb,inputUser,inputPass,login);
 
         return  vBox;

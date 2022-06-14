@@ -14,7 +14,7 @@ import java.util.List;
 
 public class crawlData {
 
-    public static final String API = "https://61cfb80065c32600170c7fa8.mockapi.io/test";
+    public static final String API = "https://6290397627f4ba1c65b59fa3.mockapi.io/traveling";
     private  static HttpURLConnection connection;
 
     public List<Travel> callApi() {

@@ -1,5 +1,6 @@
 package com.app;
 
+import com.app.controller.ControllerLogin;
 import com.app.controller.ControllerMainBoard;
 import com.app.controller.ControllerShow;
 import com.app.controller.Validate;
@@ -15,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainApp extends Application {
@@ -57,41 +59,11 @@ public class MainApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    public static void renderLogin(List<Account> list,Stage primaryStage){
-        VBox login = Login.setupLogin(primaryStage);
-        TextField user = (TextField) login.getChildren().get(1);
-        TextField pass = (TextField) login.getChildren().get(2);
-        Button btnLogin = (Button) login.getChildren().get(3);
-//          setupMainBoard(primaryStage);
-
-        Validate check = new Validate();
-        btnLogin.setOnAction(actionEvent -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("Alert Information Login");
-            alert.setContentText("UserName or Password is wrong");
-            if(check.checkLogin(list,user.getText(),pass.getText())){
-                System.out.println(true);
-//                MainBoard.setupMainBoard(primaryStage);
-//
-            }
-            else {
-                System.out.println(false);
-                alert.setContentText("Login Failed");
-                alert.show();
-            }
-        });
-        Scene scene = new Scene(login,500,500);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-    }
-
     @Override
     public void start(Stage primaryStage) {
-//        List<Account> list = new ArrayList<Account>();
-//        list.add(new Account("admin","123"));
-//        list.add(new Account("user","123"));
+        List<Account> list = new ArrayList<Account>();
+        list.add(new Account("admin","123"));
+        list.add(new Account("user","123"));
 //        renderLogin(list,primaryStage);
 
 //         render function Show
@@ -103,14 +75,16 @@ public class MainApp extends Application {
 //        Scene scene = new Scene(scrollPane,500,400);
 
         // render MainBoard
-        ControllerMainBoard cMB = new ControllerMainBoard();
-        Scene scene = new Scene(cMB.renderMainBoard(primaryStage),500,400);
+//        ControllerMainBoard cMB = new ControllerMainBoard();
+//        Scene scene = new Scene(cMB.renderMainBoard(primaryStage),500,400);
 
         // render Create
 //        ControllerCreate controllerCreate = new ControllerCreate();
 //        Scene scene = new Scene(controllerCreate.renderCreate(),500,400);
 
-
+        // render login form
+        ControllerLogin cLogin = new ControllerLogin();
+        Scene scene = new Scene(cLogin.renderLogin((ArrayList<Account>) list,primaryStage),500,500);
 
 //        primaryStage.setScene(scene);
 //        primaryStage.getIcons().add(new Image("https://seeklogo.com/images/D/dr-strange-logo-8AE12158D3-seeklogo.com.png"));

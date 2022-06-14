@@ -35,8 +35,15 @@ public class AlertNoti extends Application {
         } else {
             return false;
         }
-
     }
+    public void alearOk(String title,String content){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Thông báo của ứng dụng");
+        alert.setHeaderText(title);
+        alert.setContentText(content);
+        alert.show();
+    }
+
 
 
 }
