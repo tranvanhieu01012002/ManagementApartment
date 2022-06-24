@@ -11,17 +11,22 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import java.awt.image.BufferedImage;
 import java.io.File;
+import javax.imageio.ImageIO;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class testPost_image extends Application {
 
     public static void main(String[] args) {
         launch(args);
     }
-
+    String imgPath;
+    public static final String CURRENT = System.getProperty("user.dir")+"/src/main/java/com/app/assets/images/";
     @Override
     public void start(Stage primaryStage) {
 //        primaryStage.setTitle("Hello World!");
@@ -37,34 +42,57 @@ public class testPost_image extends Application {
 //        root.getChildren().add(btn);
 //        primaryStage.setScene(new Scene(root, 300, 250));
 //        primaryStage.show();
-//        primaryStage.setTitle("JavaFX App");
-//        Button button = new Button("Select File");
-//        VBox vBox = new VBox(button);
-//        FileChooser fileChooser = new FileChooser();
-//        Scene scene = new Scene(vBox, 960, 600);
-//
-//
-//        button.setOnAction(e -> {
-//            File selectedFile = fileChooser.showOpenDialog(primaryStage);
-//            System.out.println(selectedFile.getPath());
-//            try {
-//                Image image = new Image(new FileInputStream(selectedFile.getPath()));
-//                ImageView imageView = new ImageView(image);
-//                vBox.getChildren().add(imageView);
-//
-//                primaryStage.setScene(scene);
-//                primaryStage.show();
-//            } catch (FileNotFoundException ex) {
-//                throw new RuntimeException(ex);
-//            }
-//
-//        });
-//
-//
-//
-//
-//
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
+        primaryStage.setTitle("JavaFX App");
+        Button button = new Button("Select File");
+        Button btn_save = new Button("Save");
+        VBox vBox = new VBox(button,btn_save);
+        FileChooser fileChooser = new FileChooser();
+        Scene scene = new Scene(vBox, 960, 600);
+
+
+
+        button.setOnAction(e -> {
+            File selectedFile = fileChooser.showOpenDialog(primaryStage);
+            System.out.println();
+            this.imgPath = selectedFile.getPath().toString();
+            System.out.println("Working Directory = " +System.getProperty("user.dir") );
+
+            if(vBox.getChildren().stream().count() >2){
+                vBox.getChildren().remove(2);
+            }
+            try {
+                Image image = new Image(new FileInputStream(selectedFile.getPath()));
+                ImageView imageView = new ImageView(image);
+                imageView.setFitHeight(200);
+                imageView.setFitWidth(200);
+                vBox.getChildren().add(imageView);
+                primaryStage.setScene(scene);
+                primaryStage.show();
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+
+        });
+        btn_save.setOnAction(e->{
+            try {
+                if(!(this.imgPath == null)){
+                    URL imgURL = new URL("file:///"+this.imgPath);
+                    BufferedImage bufferedImage = ImageIO.read(imgURL);
+                    ImageIO.write(bufferedImage,"jpg",new File(CURRENT+System.currentTimeMillis()+"_image.jpg"));
+                    System.out.println("Copied!");
+                }
+                else{
+                    System.out.println("vui lòng nhập ảnh trước");
+                }
+            } catch (MalformedURLException ex) {
+                throw new RuntimeException(ex);
+            }
+            catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }
