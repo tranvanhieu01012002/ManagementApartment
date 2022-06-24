@@ -61,9 +61,9 @@ public class MainApp extends Application {
     }
     @Override
     public void start(Stage primaryStage) {
-        List<Account> list = new ArrayList<Account>();
-        list.add(new Account("admin","123"));
-        list.add(new Account("user","123"));
+        //get data users from API
+        crawlData crawlData = new crawlData();
+        List<Account> list = crawlData.strParUser(crawlData.getAPI("user"));
 //        renderLogin(list,primaryStage);
 
 //         render function Show
@@ -85,11 +85,6 @@ public class MainApp extends Application {
         // render login form
         ControllerLogin cLogin = new ControllerLogin();
         Scene scene = new Scene(cLogin.renderLogin((ArrayList<Account>) list,primaryStage),500,500);
-
-//        primaryStage.setScene(scene);
-//        primaryStage.getIcons().add(new Image("https://seeklogo.com/images/D/dr-strange-logo-8AE12158D3-seeklogo.com.png"));
-//        primaryStage.setTitle("App chọn du lịch");
-//        primaryStage.show();
 
 //      // set up some information for app
         primaryStage.getIcons().add(new Image("https://seeklogo.com/images/D/dr-strange-logo-8AE12158D3-seeklogo.com.png"));

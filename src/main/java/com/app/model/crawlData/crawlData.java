@@ -1,5 +1,6 @@
 package com.app.model.crawlData;
 
+import com.app.model.Account;
 import com.app.model.Travel;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class crawlData {
 
-    public static final String API = "https://6290397627f4ba1c65b59fa3.mockapi.io/traveling";
+    public static final String API = "https://6290397627f4ba1c65b59fa3.mockapi.io";
     private  static HttpURLConnection connection;
 
     public List<Travel> callApi() {
@@ -62,7 +63,51 @@ public class crawlData {
         }
         return list;
     }
-    public  static List<Travel> stringParser(String res){
+
+    public String getAPI(String endPoint){
+
+        BufferedReader reader;
+        String line;
+        String data = null;
+        StringBuffer responseContent = new StringBuffer();
+        try {
+            URL url = new URL(API+'/'+endPoint);
+            connection = (HttpURLConnection) url.openConnection();
+            //request setup
+            connection.setRequestMethod("GET");
+//            connection.setConnectTimeout(5000);
+//            connection.setReadTimeout(5000);
+
+            // status of connect
+            int status = connection.getResponseCode();
+            if (status != 200) {
+                reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+                while ((line = reader.readLine()) != null) {
+                    responseContent.append(line);
+                }
+                reader.close();
+            } else {
+                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                while ((line = reader.readLine()) != null) {
+                    responseContent.append(line);
+                }
+                reader.close();
+            }
+                data = responseContent.toString();
+        } catch (MalformedURLException e) {
+//            throw new RuntimeException(e);
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            //final connect we need to disconnect to save data
+            connection.disconnect();
+        }
+        return  data;
+    }
+    public List<Travel> stringParser(String res){
         List<Travel> list = new ArrayList<>();
         JSONArray array = new JSONArray(res);
         for(int i = 0; i <array.length();i++){
@@ -73,9 +118,30 @@ public class crawlData {
             String img = item.getString("img");
             String price = item.getString("price");
             String id = item.getString("id");
-            listTravel( convertToTravel(name,time,start,img,price,id),list);
+            listTravel(convertToTravel(name,time,start,img,price,id),list);
         }
         return  list;
+    }
+    public List<Account> strParUser(String res){
+        List<Account> accList = new ArrayList<>();
+        JSONArray array = new JSONArray(res);
+        System.out.println(res);
+        for(int i = 0; i <array.length();i++){
+            JSONObject item = array.getJSONObject(i);
+            String name = item.getString("name");
+            String account = item.getString("account");
+            String password = item.getString("password");
+            String id = item.getString("id");
+            addAccount(convertToAccount(name,account,password,id),accList);
+        }
+        return accList;
+    }
+    public List<Account> addAccount (Account account,List<Account> accounts){
+         accounts.add(account);
+         return  accounts;
+    }
+    public Account convertToAccount(String name,String account,String password, String id){
+           return  new Account(account,password,name,Integer.parseInt(id));
     }
     public static Travel convertToTravel(String name, String time, String start,String img ,String price,String id){
            Travel travel = new Travel();
@@ -137,53 +203,6 @@ public class crawlData {
         httpURLConnection.disconnect();
         return true;
     }
-//    public boolean postRequest(String urlStr, String jsonBodyStr)  {
-//        URL url = null;
-//        try {
-//            url = new URL(urlStr);
-//        } catch (MalformedURLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        HttpURLConnection httpURLConnection = null;
-//        try {
-//            httpURLConnection = (HttpURLConnection) url.openConnection();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        httpURLConnection.setDoOutput(true);
-//        try {
-//            httpURLConnection.setRequestMethod("POST");
-//        } catch (ProtocolException e) {
-//            throw new RuntimeException(e);
-//        }
-//        httpURLConnection.setRequestProperty("Content-Type", "application/json");
-//        try (OutputStream outputStream = httpURLConnection.getOutputStream()) {
-//            outputStream.write(jsonBodyStr.getBytes());
-//            outputStream.flush();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        try {
-//            if (httpURLConnection.getResponseCode() == 201) {
-//                try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()))) {
-//                    String line;
-//                    while ((line = bufferedReader.readLine()) != null) {
-//                        // ... do something with line
-//                        System.out.println(line);
-//                    }
-//                }
-//            } else {
-//                // ... do something with unsuccessful response
-//                System.out.println(false);
-//
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        // disconnect
-//        httpURLConnection.disconnect();
-//        return true;
-//    }
     public boolean deleteRequest(String id) throws IOException {
         boolean res = false;
         URL url = new URL(API+"/"+id);

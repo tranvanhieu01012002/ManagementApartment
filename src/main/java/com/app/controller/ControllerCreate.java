@@ -2,6 +2,7 @@ package com.app.controller;
 
 import com.app.MainApp;
 import com.app.core.AlertNoti;
+import com.app.core.RegularEx;
 import com.app.model.Travel;
 import com.app.model.crawlData.crawlData;
 import com.app.view.CreateView;
@@ -38,6 +39,10 @@ public class ControllerCreate extends Application {
         CreateView createView = new CreateView();
         GridPane gridPane = createView.createView();
         TextField textField1 = (TextField) gridPane.getChildren().get(1);
+
+        // auto fucus on form
+        textField1.requestFocus();
+
         TextField textField2 = (TextField) gridPane.getChildren().get(3);
         TextField textField3 = (TextField) gridPane.getChildren().get(5);
         TextField textField4 = (TextField) gridPane.getChildren().get(7);
@@ -45,21 +50,50 @@ public class ControllerCreate extends Application {
         TextField textField6 = (TextField) gridPane.getChildren().get(11);
         Button btn = (Button) gridPane.getChildren().get(12);
         Button btnBack = (Button) gridPane.getChildren().get(13);
+
+        AlertNoti alertNoti = new AlertNoti();
+
         btn.setOnAction(actionEvent -> {
-            // create a travel object
-            addTravel(
-                    textField1.getText(),
-                    textField4.getText(),
-                    textField2.getText()+"-"+textField3.getText(),
-                    Integer.parseInt(textField6.getText()),
-                    textField5.getText(),
-                    //id = 0 because mock api auto create id after post method
-                    0);
-            AlertNoti alertNoti = new AlertNoti();
-            alertNoti.alertInformation("Chào Hiếu","Bạn vừa thêm thành công!" +textField1.getText());
+            if(textField1.getText() == ""&&
+                    textField2.getText() ==  ""
+                    &&
+                    textField2.getText() ==  ""
+                    &&
+                    textField3.getText() ==  ""
+                    &&
+                    textField4.getText() ==  ""
+                    &&
+                    textField5.getText() ==  ""
+                    &&
+                    textField6.getText() ==  ""
+            ){
 
-           backMainList(stage);
+                alertNoti.alertInformation("chào hiếu","Vui lòng nhập tất cả các giá trị");
+                // auto fucus on form
+                textField1.requestFocus();
+            }
+            else{
+                RegularEx regularEx = new RegularEx();
+                if(regularEx.checkNumber(textField6.getText())){
+                    addTravel(
+                            textField1.getText(),
+                            textField4.getText(),
+                            textField2.getText()+"-"+textField3.getText(),
+                            Integer.parseInt(textField6.getText()),
+                            textField5.getText(),
+                            //id = 0 because mock api auto create id after post method
+                            0);
 
+                    alertNoti.alertInformation("Chào Hiếu","Bạn vừa thêm thành công sản phẩm: " +textField1.getText());
+
+                    backMainList(stage);
+                }
+                // create a travel object
+                else{
+                    alertNoti.alertInformation("Chào hiếu","Vui lòng nhập số ở ô nhập giá");
+                }
+
+            }
         });
         btnBack.setOnAction(actionEvent -> {
 
@@ -73,6 +107,5 @@ public class ControllerCreate extends Application {
         Scene scene1 = new Scene(controllerShow.renderData(stage),500,400);
         MainApp mainApp = new MainApp();
         mainApp.mainShow(scene1 ,stage);
-
     }
 }

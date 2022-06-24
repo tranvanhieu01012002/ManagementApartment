@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerShow extends Application {
@@ -106,6 +107,11 @@ public class ControllerShow extends Application {
         crawlData dataAPI = new crawlData();
 
         // create a scrollPane to scroll down
-        return new ScrollPane(inputData(dataAPI.callApi(),vBox));
+//        return new ScrollPane(inputData(dataAPI.callApi(),vBox));
+
+        List<Travel> data = dataAPI.stringParser(dataAPI.getAPI("traveling"));
+
+        return new ScrollPane(inputData(data,vBox));
+
     }
 }
