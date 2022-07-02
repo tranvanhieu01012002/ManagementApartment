@@ -2,6 +2,7 @@ package com.app.model.crawlData;
 
 import com.app.model.Account;
 import com.app.model.Travel;
+import com.app.model.scope.GlobalScope;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,54 +16,9 @@ import java.util.List;
 
 public class crawlData {
 
-    public static final String API = "https://6290397627f4ba1c65b59fa3.mockapi.io";
+
     private  static HttpURLConnection connection;
 
-    public List<Travel> callApi() {
-
-        BufferedReader reader;
-        String line;
-        StringBuffer responseContent = new StringBuffer();
-        List<Travel> list = new ArrayList<>();
-        try {
-            URL url = new URL(API);
-            connection = (HttpURLConnection) url.openConnection();
-            //request setup
-            connection.setRequestMethod("GET");
-//            connection.setConnectTimeout(5000);
-//            connection.setReadTimeout(5000);
-
-            // status of connect
-            int status = connection.getResponseCode();
-            if (status != 200) {
-                reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
-                while ((line = reader.readLine()) != null) {
-                    responseContent.append(line);
-                }
-                reader.close();
-            } else {
-                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                while ((line = reader.readLine()) != null) {
-                    responseContent.append(line);
-                }
-                reader.close();
-            }
-//            System.out.println(responseContent);
-//            for(int i = 0; i<=re)
-            list = stringParser(responseContent.toString());
-        } catch (MalformedURLException e) {
-//            throw new RuntimeException(e);
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            //final connect we need to disconnect to save data
-            connection.disconnect();
-        }
-        return list;
-    }
 
     public String getAPI(String endPoint){
 
@@ -71,7 +27,7 @@ public class crawlData {
         String data = null;
         StringBuffer responseContent = new StringBuffer();
         try {
-            URL url = new URL(API+'/'+endPoint);
+            URL url = new URL(GlobalScope.API+"/" +endPoint);
             connection = (HttpURLConnection) url.openConnection();
             //request setup
             connection.setRequestMethod("GET");
@@ -160,7 +116,7 @@ public class crawlData {
     public boolean postRequest(String urlStr, String jsonBodyStr) {
         HttpURLConnection httpURLConnection;
         try {
-            URL url = new URL(urlStr);
+            URL url = new URL(GlobalScope.API+"/"+urlStr);
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setRequestMethod("POST");
@@ -205,7 +161,7 @@ public class crawlData {
     }
     public boolean deleteRequest(String id) throws IOException {
         boolean res = false;
-        URL url = new URL(API+"/"+id);
+        URL url = new URL(GlobalScope.API+"/traveling/"+id);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setDoOutput(true);
         httpURLConnection.setRequestMethod("DELETE");
@@ -224,7 +180,7 @@ public class crawlData {
     public boolean updateRequest(String id,String jsonBodyStr){
         HttpURLConnection httpURLConnection;
         try {
-            URL url = new URL(API+"/"+id);
+            URL url = new URL(GlobalScope.API+"/traveling/"+id);
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setRequestMethod("PUT");

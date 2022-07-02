@@ -1,9 +1,6 @@
 package com.app;
 
-import com.app.controller.ControllerLogin;
-import com.app.controller.ControllerMainBoard;
-import com.app.controller.ControllerShow;
-import com.app.controller.Validate;
+import com.app.controller.*;
 import com.app.model.Account;
 import com.app.model.crawlData.crawlData;
 import com.app.view.Login;
@@ -18,6 +15,9 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.app.model.scope.GlobalScope.HEIGHT;
+import static com.app.model.scope.GlobalScope.WIDTH;
 
 public class MainApp extends Application {
 
@@ -79,12 +79,12 @@ public class MainApp extends Application {
 //        Scene scene = new Scene(cMB.renderMainBoard(primaryStage),500,400);
 
         // render Create
-//        ControllerCreate controllerCreate = new ControllerCreate();
-//        Scene scene = new Scene(controllerCreate.renderCreate(),500,400);
+        ControllerCreate controllerCreate = new ControllerCreate();
+        Scene scene = new Scene(controllerCreate.renderCreate(primaryStage),WIDTH,HEIGHT);
 
         // render login form
-        ControllerLogin cLogin = new ControllerLogin();
-        Scene scene = new Scene(cLogin.renderLogin((ArrayList<Account>) list,primaryStage),500,500);
+//        ControllerLogin cLogin = new ControllerLogin();
+//        Scene scene = new Scene(cLogin.renderLogin((ArrayList<Account>) list,primaryStage),500,500);
 
 //      // set up some information for app
         primaryStage.getIcons().add(new Image("https://seeklogo.com/images/D/dr-strange-logo-8AE12158D3-seeklogo.com.png"));

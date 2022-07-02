@@ -4,6 +4,7 @@ import com.app.MainApp;
 import com.app.core.AlertNoti;
 import com.app.model.Travel;
 import com.app.model.crawlData.crawlData;
+import com.app.model.scope.GlobalScope;
 import com.app.view.ShowData;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,9 +17,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.app.model.scope.GlobalScope.HEIGHT;
+import static com.app.model.scope.GlobalScope.WIDTH;
 
 public class ControllerShow extends Application {
 
@@ -63,25 +69,45 @@ public class ControllerShow extends Application {
 
             HBox hBox = new HBox();
             Label lbDa = new Label(travel.toString());
-            lbDa.setMaxWidth(200);
-
-            Image image = new Image(travel.getImg());
+            lbDa.setMaxWidth(500);
+            
+            Image image = null;
             ImageView imageView = new ImageView();
-            imageView.setImage(image);
-            imageView.setFitWidth(200);
-            imageView.setFitHeight(200);
+
+            try{
+                image = new Image(travel.getImg());
+            }
+            catch(Exception e) {
+                image = new Image("file:///"+ GlobalScope.FOLDER_PATH+travel.getImg());
+            }
+            finally {
+                imageView.setImage(image);
+                imageView.setFitWidth(200);
+                imageView.setFitHeight(200);    
+            }
+            
 
             Button btn = new Button("sửa");
             btn.setOnAction(actionEvent -> {
 
                 ControllerUpdate cUpdate = new ControllerUpdate(stage);
-                cUpdate.renderUpdate(travel);
+                try {
+                    cUpdate.renderUpdate(travel);
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
 
             });
             Button btnR = new Button("xóa");
             btnR.setOnAction(actionEvent -> {
 //                System.out.println(travel.getId());
-
+                File imgDelete = new File(GlobalScope.FOLDER_PATH+travel.getImg());
+                if(imgDelete.delete()){
+                    System.out.println("success");
+                }
+                else{
+                    System.out.println("fail");
+                }
                 // finish f Delete
                 showAlert("chào hiếu","Hôm này mình làm "+ travel.getId()+" nháy nha", travel.getId());
             });
@@ -99,7 +125,7 @@ public class ControllerShow extends Application {
         Button btn = (Button) hBox.getChildren().get(1);
         btn.setOnAction(actionEvent -> {
             ControllerCreate cCreate = new ControllerCreate();
-            Scene scene1 = new Scene(cCreate.renderCreate(stage),500,400);
+            Scene scene1 = new Scene(cCreate.renderCreate(stage),WIDTH,HEIGHT);
             MainApp mainApp = new MainApp();
             mainApp.mainShow(scene1 ,stage);
         });

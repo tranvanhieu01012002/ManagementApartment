@@ -30,15 +30,19 @@ public class CreateView extends Application {
                         "Giá"
                 };
 
-
-
         GridPane gp=new GridPane();
 
         for (int i = 0;i<6;i++){
-            gp.addRow(i,new Label(strAr[i]),new TextField());
+            if(i == 4){
+                gp.addRow(i,new Label(strAr[i]),new Button(strAr[i]));
+            }
+            else{
+                gp.addRow(i,new Label(strAr[i]),new TextField());
+
+            }
         }
 
-        Button b=new Button ("Nhấp đi anh ! !");
+        Button b=new Button ("Thêm! !");
         Button back = new Button("Về màn hình chính");
 
         gp.addRow(6, b,back);

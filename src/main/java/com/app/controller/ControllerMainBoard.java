@@ -10,6 +10,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import static com.app.model.scope.GlobalScope.HEIGHT;
+import static com.app.model.scope.GlobalScope.WIDTH;
+
 public class ControllerMainBoard extends Application {
 
     public static void main(String[] args) {
@@ -32,7 +35,7 @@ public class ControllerMainBoard extends Application {
 
 
             ControllerCreate controllerCreate = new ControllerCreate();
-            Scene scene = new Scene(controllerCreate.renderCreate(primaryStage),500,400);
+            Scene scene = new Scene(controllerCreate.renderCreate(primaryStage),600,400);
 
             mainApp.mainShow(scene,primaryStage);
         });
@@ -42,7 +45,7 @@ public class ControllerMainBoard extends Application {
 
             ControllerShow cShow = new ControllerShow(primaryStage);
             ScrollPane scrollPane = cShow.renderData(primaryStage);
-            Scene scene = new Scene(scrollPane,500,400);
+            Scene scene = new Scene(scrollPane,WIDTH,HEIGHT);
 
             mainApp.mainShow(scene,primaryStage);
 

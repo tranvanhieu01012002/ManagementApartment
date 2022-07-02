@@ -41,7 +41,7 @@ public class ControllerLogin extends Application {
 //                MainBoard.setupMainBoard(primaryStage);
                         alertNoti.alearOk("chào anh Hiếu","Chào mừng bạn đến với ứng dụng");
                         ControllerMainBoard cMB = new ControllerMainBoard();
-                        Scene scene = new Scene(cMB.renderMainBoard(primaryStage),500,400);
+                        Scene scene = new Scene(cMB.renderMainBoard(primaryStage),600,400);
                         new MainApp().mainShow(scene,primaryStage);
 //
             }
