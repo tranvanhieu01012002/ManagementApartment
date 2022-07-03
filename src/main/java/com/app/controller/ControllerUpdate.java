@@ -161,7 +161,7 @@ public class ControllerUpdate extends Application {
                                 alertNoti.alertInformation("Chào Hiếu", "Bạn đã thêm cập nhập thành công");
                                 // call mainShow
                                 ControllerShow controllerShow = new ControllerShow(stage);
-                                Scene scene1 = new Scene(controllerShow.renderData(stage),500,400);
+                                Scene scene1 = new Scene(controllerShow.renderData(),WIDTH,HEIGHT);
                                 mainApp.mainShow(scene1 ,stage);
                             }
                             else{

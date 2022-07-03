@@ -21,44 +21,7 @@ import static com.app.model.scope.GlobalScope.WIDTH;
 
 public class MainApp extends Application {
 
-    public void setupForm(Stage primaryStage){
-        Label lb = new Label("Add a room");
 
-
-        Label lbIpName = new Label("Apartment's name: ");
-        TextField ipID = new TextField();
-        ipID.setMaxWidth(300);
-        HBox hBox = new HBox();
-        hBox.getChildren().addAll(lbIpName, ipID);
-
-
-        Label lbIpOwner = new Label("Apartment's Owner: ");
-        TextField ipOwner = new TextField();
-        ipOwner.setMaxWidth(300);
-        HBox hBoxOwner = new HBox();
-        hBoxOwner.getChildren().addAll(lbIpOwner, ipOwner);
-
-        ComboBox comboType = new ComboBox();
-        comboType.setPromptText("Type of Apartment");
-        comboType.getItems().addAll("RENT","SOLD");
-
-        ComboBox comboPrice = new ComboBox();
-        comboPrice.getItems().addAll(10000,20000,300000,400000,50000);
-        comboPrice.setPromptText("Price");
-        comboPrice.setEditable(true);
-
-        Button btn = new Button("Add Apartment");
-        btn.setOnAction(actionEvent -> {
-            System.out.println(ipID.getText());
-            System.out.println(comboType.getValue());
-            System.out.println(comboPrice.getValue());
-        });
-        VBox vBox = new VBox();
-        vBox.getChildren().addAll(lb,hBox,comboType,comboPrice,hBoxOwner,btn);
-        Scene scene = new Scene(vBox,600,600);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
     @Override
     public void start(Stage primaryStage) {
         //get data users from API
@@ -79,8 +42,13 @@ public class MainApp extends Application {
 //        Scene scene = new Scene(cMB.renderMainBoard(primaryStage),500,400);
 
         // render Create
-        ControllerCreate controllerCreate = new ControllerCreate();
-        Scene scene = new Scene(controllerCreate.renderCreate(primaryStage),WIDTH,HEIGHT);
+        ControllerCreate controllerCreate = new ControllerCreate(primaryStage);
+        Scene scene = new Scene(controllerCreate.renderCreate(),WIDTH,HEIGHT);
+
+
+//        Show user
+//        ControllerUser controllerUser = new ControllerUser(primaryStage);
+//        Scene scene = new Scene(controllerUser.renderData(),WIDTH,HEIGHT);
 
         // render login form
 //        ControllerLogin cLogin = new ControllerLogin();

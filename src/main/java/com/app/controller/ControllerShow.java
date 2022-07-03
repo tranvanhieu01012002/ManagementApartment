@@ -53,7 +53,7 @@ public class ControllerShow extends Application {
 
                     // re-render UI
                     MainApp mainApp = new MainApp();
-                    mainApp.mainShow(new Scene(this.renderData(stage),500,400),stage);
+                    mainApp.mainShow(new Scene(this.renderData(),WIDTH,HEIGHT),stage);
                     alertNoti.alertInformation("Hi Hiếu","Bạn đã xóa thành công");
                 }
             } catch (IOException e) {
@@ -117,17 +117,17 @@ public class ControllerShow extends Application {
         }
         return vBox;
     }
-    public  ScrollPane renderData(Stage stage){
+    public  ScrollPane renderData(){
         //create from View
         ShowData dataView = new ShowData();
         VBox vBox = dataView.showData();
         HBox hBox = (HBox) vBox.getChildren().get(0);
         Button btn = (Button) hBox.getChildren().get(1);
         btn.setOnAction(actionEvent -> {
-            ControllerCreate cCreate = new ControllerCreate();
-            Scene scene1 = new Scene(cCreate.renderCreate(stage),WIDTH,HEIGHT);
+            ControllerCreate cCreate = new ControllerCreate(this.stage);
+            Scene scene1 = new Scene(cCreate.renderCreate(),WIDTH,HEIGHT);
             MainApp mainApp = new MainApp();
-            mainApp.mainShow(scene1 ,stage);
+            mainApp.mainShow(scene1 ,this.stage);
         });
         // getData
         crawlData dataAPI = new crawlData();

@@ -33,9 +33,13 @@ import static com.app.model.scope.GlobalScope.WIDTH;
 
 public class ControllerCreate extends Application {
 
+    private Stage stage;
     String imgOldPath = "";
     String imgNewPath = "";
+    public ControllerCreate(Stage stage){
+        this.stage = stage;
 
+    }
     public static void main(String[] args) {
         launch(args);
     }
@@ -54,7 +58,7 @@ public class ControllerCreate extends Application {
                         .formatted(travel.getName(), travel.getTime(), travel.getStart_end(), travel.getPrice(), travel.getImg()));
         return status;
     }
-    public  GridPane renderCreate(Stage stage){
+    public  GridPane renderCreate(){
         CreateView createView = new CreateView();
         GridPane gridPane = createView.createView();
         TextField textField1 = (TextField) gridPane.getChildren().get(1);
@@ -74,7 +78,7 @@ public class ControllerCreate extends Application {
 
         btn5.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
-            File selectedFile = fileChooser.showOpenDialog(stage);
+            File selectedFile = fileChooser.showOpenDialog(this.stage);
 
             if(selectedFile == null) {
                 System.out.println("Please chose an image");
@@ -93,7 +97,7 @@ public class ControllerCreate extends Application {
                     imageView.setFitWidth(200);
                     gridPane.addRow(7,imageView);
 //                    stage.setScene(scene);
-                    stage.show();
+                    this.stage.show();
                 } catch (FileNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -149,7 +153,7 @@ public class ControllerCreate extends Application {
                     }
                     alertNoti.alertInformation("Chào Hiếu","Bạn vừa thêm thành công sản phẩm: " +textField1.getText());
 
-                    backMainList(stage);
+                    backMainList(this.stage);
                 }
                 // create a travel object
                 else{
@@ -158,14 +162,14 @@ public class ControllerCreate extends Application {
             }
         });
         btnBack.setOnAction(actionEvent -> {
-            backMainList(stage);
+            backMainList(this.stage);
         });
         return gridPane;
     }
     void backMainList(Stage stage){
         // call mainShow
         ControllerShow controllerShow = new ControllerShow(stage);
-        Scene scene1 = new Scene(controllerShow.renderData(stage),WIDTH,HEIGHT);
+        Scene scene1 = new Scene(controllerShow.renderData(),WIDTH,HEIGHT);
         MainApp mainApp = new MainApp();
         mainApp.mainShow(scene1 ,stage);
     }

@@ -34,8 +34,8 @@ public class ControllerMainBoard extends Application {
         btnC.setOnAction(actionEvent -> {
 
 
-            ControllerCreate controllerCreate = new ControllerCreate();
-            Scene scene = new Scene(controllerCreate.renderCreate(primaryStage),600,400);
+            ControllerCreate controllerCreate = new ControllerCreate(primaryStage);
+            Scene scene = new Scene(controllerCreate.renderCreate(),600,400);
 
             mainApp.mainShow(scene,primaryStage);
         });
@@ -44,7 +44,7 @@ public class ControllerMainBoard extends Application {
         btnS.setOnAction(actionEvent -> {
 
             ControllerShow cShow = new ControllerShow(primaryStage);
-            ScrollPane scrollPane = cShow.renderData(primaryStage);
+            ScrollPane scrollPane = cShow.renderData();
             Scene scene = new Scene(scrollPane,WIDTH,HEIGHT);
 
             mainApp.mainShow(scene,primaryStage);
