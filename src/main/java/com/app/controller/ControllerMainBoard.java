@@ -35,7 +35,7 @@ public class ControllerMainBoard extends Application {
 
 
             ControllerCreate controllerCreate = new ControllerCreate(primaryStage);
-            Scene scene = new Scene(controllerCreate.renderCreate(),600,400);
+            Scene scene = new Scene(controllerCreate.renderCreate(),WIDTH,HEIGHT);
 
             mainApp.mainShow(scene,primaryStage);
         });

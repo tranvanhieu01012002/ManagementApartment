@@ -50,9 +50,13 @@ public class CreateView extends Application {
 
         return gp;
     }
-    public GridPane createAdvise (){
+    public GridPane createAdvise (GridPane gp,int index) {
 
-        String[] strAr=new String[]
+
+
+
+
+        String[] strAr = new String[]
                 {
                         "Ten cua ban",
                         "ngay sinh",
@@ -61,17 +65,17 @@ public class CreateView extends Application {
                         "Khoang gia",
                         "email"
                 };
-        GridPane gp=new GridPane();
 
-        for (int i = 0;i<6;i++){
-            gp.addRow(i,new Label(strAr[i]),new Button(strAr[i]));
+        int i;
+        gp.addRow(index,new Label("Vui long nhap thong\n tin de chung toi co the\n lien he voi ban \n nhe!"));
+        for (i = 0; i < 6; i++) {
+            gp.addRow(i+1 + index, new Label(strAr[i]), new TextField());
         }
 
-        Button b=new Button ("Thêm! !");
+        Button b = new Button("Len he bang email! !");
         Button back = new Button("Về màn hình chính");
 
-        gp.addRow(6, b,back);
-
+        gp.addRow(i + index+2, b, back);
 
         return gp;
     }

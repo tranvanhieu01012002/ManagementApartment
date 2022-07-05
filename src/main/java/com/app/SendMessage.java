@@ -18,6 +18,36 @@ public class SendMessage {
     private String toEmail;
     private String header = "Email từ du lịch siêu cấp vjpro";
     private String content = "<H1>Chung toi rat vui dc gap ban</H1>";
+
+    public SendMessage(String toEmail,String content){
+        this.setToEmail(toEmail);
+        this.setContent(content);
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public void setToEmail(String toEmail) {
+        this.toEmail = toEmail;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public String getToEmail() {
+        return toEmail;
+    }
+
     public Properties setupProperties (){
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -33,10 +63,9 @@ public class SendMessage {
             message.setFrom(new InternetAddress("010102tranvanhieu@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse("hieu.tran23@student.passerellesnumeriques.org")
+                    InternetAddress.parse(this.toEmail)
             );
             message.setSubject(this.header);
-            message.setText("Dear Mr Vinh");
             message.setContent(this.content,"text/html");
             Transport.send(message);
 
@@ -58,10 +87,10 @@ public class SendMessage {
     }
     public static void main(String[] args) {
 
-        SendMessage sendMessage = new SendMessage();
-        Properties prop = sendMessage.setupProperties();
-        Session session = sendMessage.createSession(prop);
-        sendMessage.sendMail(session);
+//        SendMessage sendMessage = new SendMessage();
+//        Properties prop = sendMessage.setupProperties();
+//        Session session = sendMessage.createSession(prop);
+//        sendMessage.sendMail(session);
 
     }
 

@@ -63,7 +63,7 @@ public class ControllerCreate extends Application {
         GridPane gridPane = createView.createView();
         TextField textField1 = (TextField) gridPane.getChildren().get(1);
 
-        // auto fucus on form
+        // auto focus on form
         textField1.requestFocus();
 
         TextField textField2 = (TextField) gridPane.getChildren().get(3);

@@ -100,7 +100,6 @@ public class ControllerShow extends Application {
             });
             Button btnR = new Button("xóa");
             btnR.setOnAction(actionEvent -> {
-//                System.out.println(travel.getId());
                 File imgDelete = new File(GlobalScope.FOLDER_PATH+travel.getImg());
                 if(imgDelete.delete()){
                     System.out.println("success");
@@ -109,7 +108,7 @@ public class ControllerShow extends Application {
                     System.out.println("fail");
                 }
                 // finish f Delete
-                showAlert("chào hiếu","Hôm này mình làm "+ travel.getId()+" nháy nha", travel.getId());
+                showAlert("chào hiếu","ban vua xoa san pham id: "+ travel.getId(), travel.getId());
             });
             hBox.getChildren().addAll(imageView,lbDa,btn,btnR);
 
