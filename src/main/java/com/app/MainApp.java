@@ -41,14 +41,14 @@ public class MainApp extends Application {
 //        ControllerMainBoard cMB = new ControllerMainBoard();
 //        Scene scene = new Scene(cMB.renderMainBoard(primaryStage),500,400);
 
-        // render Create
-        ControllerCreate controllerCreate = new ControllerCreate(primaryStage);
-        Scene scene = new Scene(controllerCreate.renderCreate(),WIDTH,HEIGHT);
+//        // render Create
+//        ControllerCreate controllerCreate = new ControllerCreate(primaryStage);
+//        Scene scene = new Scene(controllerCreate.renderCreate(),WIDTH,HEIGHT);
 
 
 //        Show user
-//        ControllerUser controllerUser = new ControllerUser(primaryStage);
-//        Scene scene = new Scene(controllerUser.renderData(),WIDTH,HEIGHT);
+        ControllerUser controllerUser = new ControllerUser(primaryStage);
+        Scene scene = new Scene(controllerUser.renderData(),WIDTH,HEIGHT);
 
         // render login form
 //        ControllerLogin cLogin = new ControllerLogin();

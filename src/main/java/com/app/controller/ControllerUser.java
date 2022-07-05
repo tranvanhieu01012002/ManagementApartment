@@ -7,12 +7,14 @@ import com.app.model.crawlData.crawlData;
 import com.app.model.scope.GlobalScope;
 import com.app.view.ShowData;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -41,7 +43,6 @@ public class ControllerUser extends Application {
 
     }
 
-    // delete
     public void showAlert(String title,String content, int id)  {
         AlertNoti alertNoti = new AlertNoti();
         boolean result = alertNoti.alertInformation(title,content)?true:false;
@@ -84,21 +85,23 @@ public class ControllerUser extends Application {
                 imageView.setFitWidth(200);
                 imageView.setFitHeight(200);    
             }
-            
 
 
-            Button btnR = new Button("xóa");
+
+            Button btnR = new Button("xem chi tiet");
             btnR.setOnAction(actionEvent -> {
-//                System.out.println(travel.getId());
-                File imgDelete = new File(GlobalScope.FOLDER_PATH+travel.getImg());
-                if(imgDelete.delete()){
-                    System.out.println("success");
-                }
-                else{
-                    System.out.println("fail");
-                }
-                // finish f Delete
-                showAlert("chào hiếu","Hôm này mình làm "+ travel.getId()+" nháy nha", travel.getId());
+////                System.out.println(travel.getId());
+//                File imgDelete = new File(GlobalScope.FOLDER_PATH+travel.getImg());
+//                if(imgDelete.delete()){
+//                    System.out.println("success");
+//                }
+//                else{
+//                    System.out.println("fail");
+//                }
+//                // finish f Delete
+//                showAlert("chào hiếu","Hôm này mình làm "+ travel.getId()+" nháy nha", travel.getId());
+                System.out.printf("click to see detail index: %s",travel.getId());
+                this.showDetail(travel);
             });
             hBox.getChildren().addAll(imageView,lbDa,btnR);
 
@@ -106,18 +109,65 @@ public class ControllerUser extends Application {
         }
         return vBox;
     }
+    public  void showDetail (Travel travel){
+        GridPane gridPane = new GridPane();
+
+        Label lbName = new Label("Ten chuyen du lich: "+travel.getName());
+
+        Label lbStart = new Label("Ngay bat dau va ket thuc: "+ travel.getStart_end());
+
+        Label lbTime = new Label("Thoi gian: "+ travel.getTime() );
+
+        Label lbPrice = new Label("Gia tien: "+ travel.getPrice());
+
+        Image image = null;
+        ImageView imageView = new ImageView();
+
+        try{
+            image = new Image(travel.getImg());
+        }
+        catch(Exception e) {
+            image = new Image("file:///"+ GlobalScope.FOLDER_PATH+travel.getImg());
+        }
+        finally {
+            imageView.setImage(image);
+            imageView.setFitWidth(200);
+            imageView.setFitHeight(200);
+        }
+
+        //Setting size for the pane
+        gridPane.setMinSize(450, 200);
+
+        //Setting the padding
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        //Setting the vertical and horizontal gaps between the columns
+        gridPane.setVgap(5);
+        gridPane.setHgap(5);
+
+        gridPane.add(imageView,0,0);
+        gridPane.add(lbName,1,0);
+        gridPane.add(lbStart,1,2);
+        gridPane.add(lbTime,1,3);
+        gridPane.add(lbPrice,1,4);
+
+        Scene scene = new Scene(gridPane,WIDTH,HEIGHT);
+
+        MainApp mainApp = new MainApp();
+        mainApp.mainShow(scene,this.stage);
+    }
     public  ScrollPane renderData(){
         //create from View
         ShowData dataView = new ShowData();
         VBox vBox = dataView.showData();
-        HBox hBox = (HBox) vBox.getChildren().get(0);
-        Button btn = (Button) hBox.getChildren().get(1);
-        btn.setOnAction(actionEvent -> {
-            ControllerCreate cCreate = new ControllerCreate(stage);
-            Scene scene1 = new Scene(cCreate.renderCreate(),WIDTH,HEIGHT);
-            MainApp mainApp = new MainApp();
-            mainApp.mainShow(scene1 ,stage);
-        });
+
+//        HBox hBox = (HBox) vBox.getChildren().get(0);
+//        Button btn = (Button) hBox.getChildren().get(1);
+//        btn.setOnAction(actionEvent -> {
+//            ControllerCreate cCreate = new ControllerCreate(stage);
+//            Scene scene1 = new Scene(cCreate.renderCreate(),WIDTH,HEIGHT);
+//            MainApp mainApp = new MainApp();
+//            mainApp.mainShow(scene1 ,stage);
+//        });
         // getData
         crawlData dataAPI = new crawlData();
 

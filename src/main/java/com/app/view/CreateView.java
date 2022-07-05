@@ -50,5 +50,30 @@ public class CreateView extends Application {
 
         return gp;
     }
+    public GridPane createAdvise (){
+
+        String[] strAr=new String[]
+                {
+                        "Ten cua ban",
+                        "ngay sinh",
+                        "ghi chu",
+                        "Thời gian phu hop",
+                        "Khoang gia",
+                        "email"
+                };
+        GridPane gp=new GridPane();
+
+        for (int i = 0;i<6;i++){
+            gp.addRow(i,new Label(strAr[i]),new Button(strAr[i]));
+        }
+
+        Button b=new Button ("Thêm! !");
+        Button back = new Button("Về màn hình chính");
+
+        gp.addRow(6, b,back);
+
+
+        return gp;
+    }
 
 }
