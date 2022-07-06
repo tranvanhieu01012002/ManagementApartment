@@ -25,8 +25,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-//        crawlData crawlData = new crawlData();
-//        List<Account> list = crawlData.strParUser(crawlData.getAPI("user"));
+        crawlData crawlData = new crawlData();
+        List<Account> list = crawlData.strParUser(crawlData.getAPI("user"));
 //        renderLogin(list,primaryStage);
 
 //         render function Show
@@ -38,20 +38,20 @@ public class MainApp extends Application {
 //        Scene scene = new Scene(scrollPane,500,400);
 
         // render MainBoard
-        ControllerMainBoard cMB = new ControllerMainBoard();
-        Scene scene = new Scene(cMB.renderMainBoard(primaryStage),WIDTH,HEIGHT);
+//        ControllerMainBoard cMB = new ControllerMainBoard();
+//        Scene scene = new Scene(cMB.renderMainBoard(primaryStage),WIDTH,HEIGHT);
 
 //        // render Create
 //        ControllerCreate controllerCreate = new ControllerCreate(primaryStage);
 //        Scene scene = new Scene(controllerCreate.renderCreate(),WIDTH,HEIGHT);
 
 //        Show user
-//        ControllerUser controllerUser = new ControllerUser(primaryStage);
-//        Scene scene = new Scene(controllerUser.renderData(),WIDTH,HEIGHT);
+        ControllerUser controllerUser = new ControllerUser(primaryStage);
+        Scene scene = new Scene(controllerUser.renderData(),WIDTH,HEIGHT);
 
         // render login form
 //        ControllerLogin cLogin = new ControllerLogin();
-//        Scene scene = new Scene(cLogin.renderLogin((ArrayList<Account>) list,primaryStage),500,500);
+//        Scene scene = new Scene(cLogin.renderLogin((ArrayList<Account>) list,primaryStage),WIDTH,HEIGHT);
 
 //      // set up some information for app
         primaryStage.getIcons().add(new Image("https://seeklogo.com/images/D/dr-strange-logo-8AE12158D3-seeklogo.com.png"));
