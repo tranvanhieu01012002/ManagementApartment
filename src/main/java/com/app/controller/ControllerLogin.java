@@ -39,7 +39,7 @@ public class ControllerLogin extends Application {
             if(check.checkLogin(list,user.getText(),pass.getText())){
                 System.out.println(true);
 //                MainBoard.setupMainBoard(primaryStage);
-                        alertNoti.alearOk("chào anh Hiếu","Chào mừng bạn đến với ứng dụng");
+                        alertNoti.alearOk("chào Admin","Chào mừng bạn đến với ứng dụng");
                         ControllerMainBoard cMB = new ControllerMainBoard();
                         Scene scene = new Scene(cMB.renderMainBoard(primaryStage),600,400);
                         new MainApp().mainShow(scene,primaryStage);

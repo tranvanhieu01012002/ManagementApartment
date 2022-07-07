@@ -70,9 +70,9 @@ public class ControllerUpdate extends Application {
         Button textField5 = (Button) gridPane.getChildren().get(9);
         TextField textField6 = (TextField) gridPane.getChildren().get(11);
         textField1.setText(travel.getName());
-        textField2.setText(travel.getTime());
-        textField3.setText(travel.getTime());
-        textField4.setText(travel.getStart_end());
+        textField2.setText(travel.getStart_end());
+        textField3.setText(travel.getStart_end());
+        textField4.setText(travel.getTime());
         textField5.setText(travel.getImg());
         textField6.setText(String.valueOf(travel.getPrice()));
         this.imgCurrent = travel.getImg();
